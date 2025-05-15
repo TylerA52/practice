@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+      h1 {
+        font: 'Helvetica Neue';
+        font-size: 2.5rem;
+        font-weight: 600;
+        color: #2c3e50;
+        letter-spacing: -0.5px;
+        margin-bottom: 1rem;
+        line-height: 1.2;
+      }
+      body {
+        background-color: rgba(165, 200, 200, 0.5);
+      }
+      .submitButton {
+        font: 'Helvetica Neue';
+        background-color: aliceblue;
+        color: black;
+        padding: 5px;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: darkslategray;
+        border-width: 2px;
+      }
+      .exitButton {
+        font: 'Helvetica Neue';
+        background-color: rgb(206, 89, 83);
+        color: black;
+        padding: 5px;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: darkslategray;
+        border-width: 2px;
+      }
+      .exitButton:hover {
+        background-color: darkred;
+        color: white;
+      }
+      .submitButton:hover {
+        background-color: darkslategray;
+        color: white;
+      }
+      .completed {
+        text-decoration: line-through;
+        color: gray;
+      }
+      .completedButton {
+        font: 'Helvetica Neue';
+        background-color: rgb(115, 255, 33);
+        color: black;
+        padding: 5px;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: darkslategray;
+        border-width: 2px;
+      }
+      .inputForm {
+        font: 'Helvetica Neue';
+        background-color: aliceblue;
+        color: black;
+        padding: 10px;
+        border-radius: 10px;
+        border-style: groove;
+        border-color: darkslategray;
+        border-width: 2px;
+        width: 300px;
+        height: 200px;
+      }
+      input {
+        font: 'Helvetica Neue';
+        background-color: aliceblue;
+      }
+    </style>
+    <title>
+      To-Do List
+    </title>
+</head>
+    <body>
+      <h1>To-Do List</h1>
+      <p>You can track your tasks here!</p>
+
+        <h3>Enter your task(s):</h3>
+        <input type="text" id="task" name="task" placeholder="Task:"><br><br>
+        <button onclick="addMessage()" class="submitButton">Submit</button> <br><br>
+
+        <div id="todolist" class ="inputForm"></div><br>
+
+        <p> <button onclick="pageRefresh()" class ="exitButton">CLEAR</button> <button onclick="clearCompleted()" class="completedButton"> REMOVE COMPLETED TASKS </button></p>
+
+        <script>
+          function addMessage() {
+            const input = document.getElementById("task");
+            const messageText = input.value;
+
+          if (messageText.trim() !== "") {
+            const newMessage = document.createElement("p");
+            newMessage.className = "message";
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            /*
+            Add strikethrough on change here?
+
+            checkbox.onchange = function () {
+              toggleStrike(this);
+            } */
+
+            const taskUpdate = document.createTextNode(" " + messageText);
+
+            newMessage.appendChild(checkbox);
+            newMessage.appendChild(taskUpdate);
+
+            document.getElementById("todolist").appendChild(newMessage);
+            input.value = ""; // clear input
+                }
+              }
+
+          function pageRefresh(){
+            location.reload();
+          }
+
+          function toggleStrike(){
+
+          }
+
+          function clearCompleted(){
+            const todolist = document.getElementById("todolist");
+            const tasks = todolist.querySelectorAll(".message");
+
+            tasks.forEach(task => {
+              const checkbox = task.querySelector('input[type="checkbox"]');
+              if (checkbox && checkbox.checked) {
+                task.remove();
+              }
+            })
+          }
+            
+        </script>
+
+    </body>
+</html>
