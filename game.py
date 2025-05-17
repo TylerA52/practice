@@ -3,6 +3,21 @@ import pygame
 pygame.init()
 
 screen = pygame.display.set_mode((640, 640))
+clock = pygame.time.Clock()
+font = pygame.font.Font(None, size=30)
+
+OVERWORLD = "overworld"
+SHOP = "shop"
+
+game_state = OVERWORLD
+
+def draw_overworld():
+
+
+
+def draw_shop():
+
+
 
 dudeMonster = pygame.image.load('Dude_Monster.png').convert()
 dudeMonster = pygame.transform.scale(dudeMonster, (dudeMonster.get_width() * 3, dudeMonster.get_height() * 3))
@@ -13,10 +28,6 @@ player_speed = 10
 x = 0
 
 running = True
-
-clock = pygame.time.Clock()
-
-font = pygame.font.Font(None, size=30)
 
 while running:
     clock.tick(60)
