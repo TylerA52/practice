@@ -12,11 +12,11 @@ SHOP = "shop"
 game_state = OVERWORLD
 
 def draw_overworld():
-
-
+    screen.fill((255, 255, 255))
+    
 
 def draw_shop():
-
+    screen.fill((0, 0, 0))
 
 
 dudeMonster = pygame.image.load('Dude_Monster.png').convert()
@@ -31,13 +31,10 @@ running = True
 
 while running:
     clock.tick(60)
-    screen.fill((255, 255, 255))
-
-    hitbox = pygame.Rect(x, 30, dudeMonster.get_width(), dudeMonster.get_height())
-    target = pygame.Rect(300, 0, 160, 280)
-
-    collision = hitbox.colliderect(target)
-    pygame.draw.rect(screen, (255 * collision, 255, 0), target)
+    if game_state == OVERWORLD:
+        draw_overworld()
+    if game_state == SHOP:
+        draw_shop()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -52,6 +49,11 @@ while running:
         player_pos[1] += player_speed
     if keys[pygame.K_d]:
         player_pos[0] += player_speed
+    if keys[pygame.K_l]:
+        # printing to console for testing
+        print("Shop!")
+        game_state = SHOP
+
 
     screen.blit(dudeMonster, player_pos)
     pygame.display.flip()
