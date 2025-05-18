@@ -1,4 +1,6 @@
-import pygame
+from tiles import *
+
+# Have to load in the spritesheet image
 
 pygame.init()
 
@@ -11,19 +13,21 @@ SHOP = "shop"
 
 game_state = OVERWORLD
 
+spritesheet = Spritesheet("basictiles.png")
+tile_map = TileMap('testmap.csv', spritesheet)
+
 def draw_overworld():
-    screen.fill((255, 255, 255))
-    
+    tile_map.draw_map(screen)
 
 def draw_shop():
     screen.fill((0, 0, 0))
 
 
 dudeMonster = pygame.image.load('Dude_Monster.png').convert()
-dudeMonster = pygame.transform.scale(dudeMonster, (dudeMonster.get_width() * 3, dudeMonster.get_height() * 3))
+dudeMonster = pygame.transform.scale(dudeMonster, (dudeMonster.get_width() * 2, dudeMonster.get_height() * 2))
 
-player_pos = [30, 30]
-player_speed = 10
+player_pos = [31, 31]
+player_speed = 16
 
 x = 0
 
@@ -31,9 +35,12 @@ running = True
 
 while running:
     clock.tick(60)
+    screen.fill ((0, 0, 0))
+
     if game_state == OVERWORLD:
         draw_overworld()
-    if game_state == SHOP:
+        screen.blit(dudeMonster, player_pos)
+    elif game_state == SHOP:
         draw_shop()
 
     for event in pygame.event.get():
@@ -54,8 +61,6 @@ while running:
         print("Shop!")
         game_state = SHOP
 
-
-    screen.blit(dudeMonster, player_pos)
     pygame.display.flip()
 
 pygame.quit()
