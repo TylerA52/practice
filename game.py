@@ -14,24 +14,27 @@ SHOP = "shop"
 game_state = OVERWORLD
 
 spritesheet = Spritesheet("basictiles.png")
-tile_map = TileMap('testmap.csv', spritesheet)
+overworld_map = TileMap('testmap.csv', spritesheet)
+overworld_mapL2 = TileMap('testmapl2.csv', spritesheet)
 
 def draw_overworld():
-    tile_map.draw_map(screen)
+    overworld_map.draw_map(screen)
+    overworld_mapL2.draw_map(screen)
 
 def draw_shop():
     screen.fill((0, 0, 0))
 
-
 dudeMonster = pygame.image.load('Dude_Monster.png').convert()
 dudeMonster = pygame.transform.scale(dudeMonster, (dudeMonster.get_width() * 2, dudeMonster.get_height() * 2))
 
-player_pos = [31, 31]
-player_speed = 16
+player_pos = [0, 0]
+player_speed = 32
 
 x = 0
 
 running = True
+
+pygame.key.set_repeat(300, 100)
 
 while running:
     clock.tick(60)
@@ -47,19 +50,19 @@ while running:
         if event.type == pygame.QUIT:
             running = False 
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos[1] -= player_speed
-    if keys[pygame.K_a]:
-        player_pos[0] -= player_speed
-    if keys[pygame.K_s]:
-        player_pos[1] += player_speed
-    if keys[pygame.K_d]:
-        player_pos[0] += player_speed
-    if keys[pygame.K_l]:
-        # printing to console for testing
-        print("Shop!")
-        game_state = SHOP
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                player_pos[1] -= player_speed
+            if event.key == pygame.K_a:
+                player_pos[0] -= player_speed
+            if event.key == pygame.K_s:
+                player_pos[1] += player_speed
+            if event.key == pygame.K_d:
+                player_pos[0] += player_speed
+            if event.key == pygame.K_l:
+                # printing to console for testing
+                print("Shop!")
+                game_state = SHOP
 
     pygame.display.flip()
 
